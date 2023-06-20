@@ -1,13 +1,77 @@
 body {
-    background: #4b6cb7;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-image: url("img/cats.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
 }
 
-h1, p, a {
-    font-family: 'Carrois Gothic SC', sans-serif;
+*{
+    justify-items: center;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
     display: block;
     text-align: center;
     line-height:.8;
-    color: white;
+    color: darkslategray;
+    background-color: darkgray;
+}
+
+p{
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+    text-align: center;
+}
+
+button{
+    color: #ffffff;
+    background-color: rgb(67, 176, 243);
+    border: 2px solid #000;
+    font-weight: 900;
+    padding: 5px 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    opacity: .85;
+    text-decoration: none;
+}
+
+button:hover{
+    background-color: transparent;
+    border: 2px solid rgb(67, 176, 243);
+    color: rgb(67, 176, 243);
+}
+
+.tablero, .fila {
+    display: grid;
+}
+
+.tablero {
+    background: white;
+    width: 410px;
+    height:410px;
+    border: 0.5rem solid #333;
+}
+
+.fila {
+    place-content: space-between space-evenly;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cuadrado {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background: burlywood;
+    border: 0.5px solid #ccc;
+    border-radius: 10%;
+    font-size: 3.5rem;
+    text-align: center;
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 10px;
 }
