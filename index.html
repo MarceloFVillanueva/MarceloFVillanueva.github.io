@@ -9,29 +9,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Primera Entrega</h1>
-    <div class="contenedor">
-        <p>Bienvenido!</p>
-        <button>iniciar juego</button>
-        <div class="tablero">
-            <div class="fila">
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
+    <div id="contenedor">
+        <header>
+            <h1>Segunda Entrega</h1>
+        </header>
+        <section id="flex-content">
+            <div class="card">
+                <img src="img/sleepy_cat.png" alt="cat">
             </div>
-            <div class="fila">
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-            </div>
-            <div class="fila">
-                <div class="cuadrado">
-                    <div class="card"><img src="img/cat_player_one.png" alt="Player One" /></div>
-                </div>
-                <div class="cuadrado"></div>
-                <div class="cuadrado"></div>
-            </div>
-        </div>
+        </section>
+        <aside>
+            <header>
+                <p>Bienvenido!</p>
+            </header>
+            <section id="grid-button">
+                <button onclick="nuevoJuego()"">Nuevo juego</button>
+                <button onclick="startGame()">iniciar juego</button>
+                <button onclick="colocarNuevaPieza()"">Nueva pieza</button>
+            </section>
+        </aside>
         <script src="main.js"></script>
     </div>
 </body>
