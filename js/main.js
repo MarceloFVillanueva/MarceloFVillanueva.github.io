@@ -43,22 +43,44 @@ function iniciarJuego(){
     const nameJugadorDos = document.getElementById('nombre-jugador2').value || "bot-jugadorDos"
     contenido.removeChild(cajaNombres)
     const jugadorUno = crearJugador(nameJugadorUno);
-    lateralIzquierdo.innerHTML=`<h2>${nameJugadorUno}</h2>`
+    lateralIzquierdo.appendChild(describirJugador(jugadorUno))
+    lateralIzquierdo.setAttribute("style", "background-color:rgb(81, 145, 166)")
+    console.log(lateralIzquierdo.dir)
+    console.log(lateralIzquierdo)
     const jugadorDos = crearJugador(nameJugadorDos);
-    lateralDerecho.innerHTML=`<h2>${nameJugadorDos}</h2>`
+    lateralDerecho.appendChild(describirJugador(jugadorDos))
+    lateralDerecho.setAttribute("style", "background-color:rgb(81, 145, 166)")
     guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos)
     crearTablero()
 }
 
 function crearJugador(name){
-    let avatar = elegirAvatar() || "black_cat.png"
-    let jugador = new Jugador(name,avatar)
+    let jugador = new Jugador(name,elegirAvatar() || "black_cat.png")
     console.log(jugador)
     return jugador
 }
 
+function describirJugador(jugador){
+    let columna = document.createElement('td')
+    columna.innerHTML = `
+    <td><h2>Nombre Jugador</h2></td>
+    <td><p>${jugador.nombre}</p></td>
+    <td><h2>Avatar elegido</h2></td>
+    <td>
+        <div class="card">
+            <img src="../img/${jugador.avatar}" alt="cat">
+        </div>
+    </td>
+    <td><h2>Cant. Piezas</h2></td>
+    <td><p>${jugador.piezas.length}</p></td>
+    `
+    return columna
+}
+
 function elegirAvatar(){
+    let chosenAvatar = ""
     console.log("imprimir selección de personajes para elegir")
+    return chosenAvatar
 }
 
 function crearTablero(){

@@ -3,6 +3,7 @@
     padding: 0px;
     text-align: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 body {
@@ -52,10 +53,12 @@ h2{
 }
 
 #side{
-    width: 200px;
+    width: 250px;
     float:left;
     border: 1px black;
     display: grid;
+    align-items: center;
+    margin: 10px
 }
 
 .left-side{ grid-area: left-side;}
@@ -144,4 +147,8 @@ button:hover{
     border-radius: 10%;
     font-size: 3.5rem;
     text-align: center;
+}
+
+td{
+    margin: 30px;
 }
