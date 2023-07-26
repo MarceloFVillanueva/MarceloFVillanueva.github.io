@@ -6,29 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProyectoJs</title>
     <link rel="image icon" href="img/favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
 </head>
 <body>
-    <div id="contenedor">
-        <header>
-            <h1>Segunda Entrega</h1>
-        </header>
-        <section id="flex-content">
-            <div class="card">
-                <img src="img/sleepy_cat.png" alt="cat">
+    <div class="contenedor">
+        <div class="header">
+            <h1>Tercera Entrega</h1>
+            <h2>Bievenidos!!!</h2>
+        </div>
+        <div id = "side" class="left-side"></div>
+        <div class="flex-content">
+            <div class="initial-box">
+                <div id="player-one">
+                    <p>Ingresa un nombre:</p>
+                    <input id="nombre-jugador1" type="text">    
+                </div>
+                <dir id="versus"><strong>VS</strong></dir>
+                <div id= "player-two">
+                    <p>Ingresa un nombre</p>
+                    <input id="nombre-jugador2" type="text">
+                </div>
+                <button class="initial-btn">Iniciar Juego</button>
             </div>
-        </section>
-        <aside>
-            <header>
-                <p>Bienvenido!</p>
-            </header>
-            <section id="grid-button">
-                <button onclick="nuevoJuego()"">Nuevo juego</button>
-                <button onclick="startGame()">iniciar juego</button>
-                <button onclick="colocarNuevaPieza()"">Nueva pieza</button>
-            </section>
-        </aside>
-        <script src="main.js"></script>
+        </div>
+        <div id = "side" class="right-side"></div>
+        <div class="footer">
+            <button class="finish-btn">Reiniciar Juego</button>
+        </div>
     </div>
 </body>
 </html>
