@@ -1,3 +1,3 @@
-Pruebas
+link: MarceloFVillanueva.github.io
 
-Falta, lógica de movimiento de piedas.
+Falta, lógica de movimiento de piezas.
