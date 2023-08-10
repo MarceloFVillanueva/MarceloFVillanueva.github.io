@@ -15,16 +15,19 @@ const btnInfo = document.querySelector("#btn-info");
 const btnReStart = document.querySelector("#btn-restart");
 const playerSetupBox = document.querySelector("#player-setup-box");
 const boardSelector = document.querySelector("#board-selector");
+const playBox = document.querySelector("#play-box")
 
-if (btnWelcome){
-    swal("Bienvenidos al cascarón de un juego!!","Para comenzar con el juego, siga los siguientes pasos:\r\nPaso 1: Elija el nombre de los jugadores\r\nPaso 2: Elija el gato de mascota que más le guste\r\nPaso 3: Elija el tamaño del trablero\r\nPaso 4: Presionar botón 'Iniciar Juego'")
-    btnWelcome.addEventListener("click",mostrarPaginaPrincipal)
+if (playBox){
+    const celdas = document.querySelectorAll(".cuadrado")
+    celdas.forEach(element => {
+        console.log(element.id)
+    });
 }
 
-if (btnStart){btnStart.addEventListener("click",iniciarJuego)}
-if (btnInitial){btnInitial.addEventListener("click",volverPaginaInicio)}
-if (btnInfo){btnInfo.addEventListener("click",mostrarInfo)}
-if (btnReStart){btnReStart.addEventListener("click",terminarJuego)}
+if (boardSelector){
+    let select = document.getElementById("selector")
+    select.addEventListener("change",()=>{selectedBoard = select.value})
+}
 
 function setCat(player,val,data){
     const index = player.catID
@@ -46,36 +49,31 @@ async function getCats(){
     }
 }
 
+async function actualizarImagen(player,val){
+    const catData = await getCats()
+    setCat(player,val,catData)
+}
+
 async function cargarDatosGuardadosLocalmente(){
     const datosUno = JSON.parse(localStorage.getItem("jugadorUno"))
     if(datosUno){
-        document.querySelector(`#${datosUno.divID} #player-name`).placeholder = datosUno.name
-        jugadorUnoGuardadoEnJson = new Player(datosUno.divID,datosUno.name,datosUno.catID,datosUno.catImg,datosUno.catName)
+        document.querySelector(`#${datosUno.divIDsetup} #player-name`).placeholder = datosUno.name
+        jugadorUnoGuardadoEnJson = new Player(datosUno.name,datosUno.catID,datosUno.catImg,datosUno.catName,datosUno.divIDsetup,datosUno.divIDplayer)
     }else{
         document.querySelector("#player-one-setup #player-name").placeholder = "jugador uno"
-        jugadorUnoGuardadoEnJson = new Player("player-one-setup","jugadorUno",1,"black_cat.png","kuro")
+        jugadorUnoGuardadoEnJson = new Player("jugadorUno",1,"black_cat.png","kuro","player-one-setup","left-side")
     }
     
     const datosDos = JSON.parse(localStorage.getItem("jugadorDos"))
     if(datosDos){
-        document.querySelector(`#${datosDos.divID} #player-name`).placeholder = datosDos.name
-        jugadorDosGuardadoEnJson = new Player(datosDos.divID,datosDos.name,datosDos.catID,datosDos.catImg,datosDos.catName)
+        document.querySelector(`#${datosDos.divIDsetup} #player-name`).placeholder = datosDos.name
+        jugadorDosGuardadoEnJson = new Player(datosDos.name,datosDos.catID,datosDos.catImg,datosDos.catName,datosDos.divIDsetup,datosDos.divIDplayer)
     }else{
         document.querySelector("#player-two-setup #player-name").placeholder = "jugador dos"
-        jugadorDosGuardadoEnJson = new Player("player-two-setup","jugadorDos",1,"black_cat.png","kuro")
+        jugadorDosGuardadoEnJson = new Player("jugadorDos",1,"black_cat.png","kuro","player-two-setup","right-side")
     }
 
     return {jugadorUnoGuardadoEnJson,jugadorDosGuardadoEnJson}
-}
-
-async function guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos){
-    localStorage.setItem("jugadorUno", JSON.stringify(jugadorUno))
-    localStorage.setItem("jugadorDos", JSON.stringify(jugadorDos))
-}
-
-async function actualizarImagen(player,val){
-    const catData = await getCats()
-    setCat(player,val,catData)
 }
 
 if (playerSetupBox){
@@ -100,14 +98,29 @@ if (playerSetupBox){
     })
 }
 
-if (boardSelector){
-    let select = document.getElementById("selector")
-    select.addEventListener("change",()=>{selectedBoard = select.value})
+if (btnReStart){btnReStart.addEventListener("click",reiniciarJuego)}
+if (btnInfo){btnInfo.addEventListener("click",mostrarInfo)}
+if (btnInitial){btnInitial.addEventListener("click",volverPaginaInicio)}
+if (btnStart){btnStart.addEventListener("click",iniciarJuego)}
+if (btnWelcome){
+    swal("Bienvenidos al cascarón de un juego!!","Para comenzar con el juego, siga los siguientes pasos:\r\nPaso 1: Elija el nombre de los jugadores\r\nPaso 2: Elija el gato de mascota que más le guste\r\nPaso 3: Elija el tamaño del trablero\r\nPaso 4: Presionar botón 'Iniciar Juego'")
+    btnWelcome.addEventListener("click",mostrarPaginaPrincipal)
+}
+
+
+async function guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos){
+    localStorage.setItem("jugadorUno", JSON.stringify(jugadorUno))
+    localStorage.setItem("jugadorDos", JSON.stringify(jugadorDos))
 }
 
 async function iniciarJuego(){
-    playerOne.name = document.querySelector(`#${playerOne.divID} #player-name`).value || "bot-jugadorUno"
-    playerTwo.name = document.querySelector(`#${playerTwo.divID} #player-name`).value || "bot-jugadorDos"
+    playerOne.name = document.querySelector(`#${playerOne.divIDsetup} #player-name`).value || "bot-jugadorUno"
+    playerTwo.name = document.querySelector(`#${playerTwo.divIDsetup} #player-name`).value || "bot-jugadorDos"
+    
+    if(playerOne.catID === playerTwo.catID){
+        document.querySelector("#player-two-setup img").setAttribute('class',"card_copia")
+    }
+    
     await guardarJugadoresEnLocalStorage(playerOne,playerTwo)
 
     if(selectedBoard==="tablero1"){
@@ -116,13 +129,13 @@ async function iniciarJuego(){
         location.href = "../pages/tablero4x5.html"
     }else if(selectedBoard==="tablero3"){
         location.href = "../pages/tablero5x7.html"
-    }else if(selectedBoard==="tablero2"){
+    }else if(selectedBoard==="tablero4"){
         location.href = "../pages/tablero8x9.html"
     }
 
 }
 
-function terminarJuego(){
+function reiniciarJuego(){
     localStorage.removeItem("jugadorUno")
     localStorage.removeItem("jugadorDos")
     location.href = "../index.html"
@@ -130,7 +143,7 @@ function terminarJuego(){
 
 function volverPaginaInicio(){
     if (playerSetupBox){
-        terminarJuego()
+        reiniciarJuego()
     }else{
         location.href = "./inicio.html"
     }
@@ -143,6 +156,7 @@ function mostrarInfo(){
 function mostrarPaginaPrincipal(){
     location.href = "./pages/inicio.html";
 }
+
 // const pieza1 = new Pieza("normal",[1,2])
 // const pieza2 = new Pieza("normal",[2,2])
 // const pieza3 = new Pieza("normal",[1,3])

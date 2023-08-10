@@ -1,15 +1,15 @@
 export default class Player {
-    constructor(divID,name,catID,catImg,catName){
+    constructor(name,catID,catImg,catName,divIDsetup,divIDplayer){
         this.name = name
         this.catID = catID
         this.catImg = catImg
         this.catName = catName
-        this.divID = divID
+        this.divIDsetup = divIDsetup
+        this.divIDplayer = divIDplayer
         this.piezas = []
 
-        this._playerImgBox = document.querySelector(`#${divID} #player-img-box`)
+        this._playerImgBox = document.querySelector(`#${divIDsetup} #player-img-box`)
 
-        // this.renderSetUp()
         this.render()
     }
 
@@ -30,28 +30,12 @@ export default class Player {
         console.log(this.piezas)
     }
 
-    // buildName(){
-    //     return `
-    //     <div class="player-name">
-    //         <h2>${this.name}</h2>
-    //     </div>
-    //     `
-    // }
-
     buildImage(){
         return `
         <img id="character-image-container" src="../img/${this.catImg}" class="card">
         <p id="player-one-img-name">${this.catName}</p>
         `
     }
-
-    // cantPiece(){
-    //     return `
-    //     <div class="player-cant-piece">
-    //         <h2>${this.piezas.length}</h2>
-    //     </div>
-    //     `
-    // }
 
     render(){
         this._playerImgBox.innerHTML=this.buildImage()

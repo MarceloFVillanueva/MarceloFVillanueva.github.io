@@ -2,7 +2,7 @@
     margin: 0px;
     padding: 0px;
     border-radius: 10px;
-    align-items: center;
+    /* align-items: center; */
     text-align: center;
 }
 
@@ -10,17 +10,18 @@ body {
     display: flex;
     flex-direction: column;
     background-image: url("../img/cat_background.png");
-    background-size: cover;
+    height: 100hv;
+    /* background-size: cover; */
     background-repeat: no-repeat;
 }
 
 .header{
     position: sticky;
     background-color: rgb(118, 206, 236);
-    text-align: center;
+    /* text-align: center; */
     border-radius: 10px;
     margin: 10px;
-    width: 90vw;
+    /* width: 90vw; */
 }
 
 h1 {
@@ -34,7 +35,7 @@ h1 {
     background-color: rgba(118, 206, 236, 0.831);
     position: sticky;
     margin: 10px;
-    width: 90vw;
+    /* width: 90vw; */
 }
 
 .container{
@@ -74,10 +75,17 @@ h1 {
     flex-direction: column;
 }
 
-#player-img-box, #player-two-img-box{
+#player-img-box{
     font-size: 15px;
     width: fit-content;
     background-color: #ecbfbf81;
+}
+
+.card_copia{
+    filter: hue-rotate(120deg);
+    width: 80px;
+    height: 80px;
+    margin: 10px;
 }
 
 .card{
@@ -141,9 +149,10 @@ select{
     background: transparent;
 }
 
-.play-zone{
+#play-box{
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
 }
 
 .cuadrado {
@@ -155,9 +164,13 @@ select{
     border-top: 2px solid #ffffff75;
     border-left: 2px solid #ffffff75;
     box-shadow: 5px 5px 12px #00000035;
-    background: #ffffff25;
+    background: #10b6c825;
     overflow: hidden;
     backdrop-filter: blur(4px);
+}
+
+.cuadrado:hover{
+    background: #c89a1025;
 }
 
 .fila:hover > :not(:hover) {
@@ -166,7 +179,6 @@ select{
 
 #left-side, #right-side{
     width: 250px;
-    height: 100vh;
     float:left;
     border: 1px black;
     display: grid;
