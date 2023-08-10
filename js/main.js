@@ -70,9 +70,12 @@ if (playBox){
         const imgClass = document.querySelector("#right-side #character-image-container")
         imgClass.setAttribute("class","card_copia")
         playerTwo.classImg = "card_copia"
-        await guardarJugadoresEnLocalStorage(playerOne,playerTwo)
+    }else{
+        playerTwo.classImg = "card"
     }
 
+    await guardarJugadoresEnLocalStorage(playerOne,playerTwo)
+    
     completarDatosJugador(playerOne)
     completarDatosJugador(playerTwo)
 }

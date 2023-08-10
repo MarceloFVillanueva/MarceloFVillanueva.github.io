@@ -18,19 +18,19 @@ export default class Player {
     addPiece(position){
         const nuevaPieza = new Pieza("normal",position,this.classImg)
         this.piezas.push(nuevaPieza)
-        console.log(this.piezas)
+        // console.log(this.piezas)
     }
 
     removePiece(pieza){
-        console.log("piezas: ",this.piezas)
-        console.log("pieza a eliminar: ",pieza)
+        // console.log("piezas: ",this.piezas)
+        // console.log("pieza a eliminar: ",pieza)
         for(let element of this.piezas){
             if(pieza.posicionXY === element.posicionXY){
                 const index = this.piezas.indexOf(element)
                 this.piezas.splice(index,1)
             }
         }
-        console.log(this.piezas)
+        // console.log(this.piezas)
     }
 
     buildImage(){
