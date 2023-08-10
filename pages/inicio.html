@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProyectoJs</title>
+    <link rel="image icon" href="../img/favicon.ico">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer  type="module"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Trabajo Final</h1>
+    </div>
+    <div class="container">
+        <nav class="bar">
+            <button id="btn-info" class="btn-gral">Como jugar?</button>
+            <button id="btn-initial" class="btn-gral">Volver</button>
+            <button id="btn-restart" class="btn-gral" data-page="index">Reiniciar Todo</button>
+        </nav>
+            <div id= "player-setup-box" class="transparent-box">
+                <div class="player-box">
+                    <div id="player-one-setup">
+                        <p>Jugador 1:</p>
+                        <input id="player-name" type="text">
+                        <div id="player-img-box" class="transparent-box">
+                        </div>
+                        <div>
+                            <button id="btn-prev"><</button>
+                            <button id="btn-next">></button>
+                        </div>
+                    </div>
+                    <div id="versus"><strong>VS</strong></div>
+                    <div id="player-two-setup">
+                        <p>Jugador 2:</p>
+                        <input id="player-name" type="text">
+                        <div id="player-img-box" class="transparent-box">
+                        </div>
+                        <div>
+                            <button id="btn-prev"><</button>
+                            <button id="btn-next">></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="board-selector">
+                    <p>Elija el tamaño del tablero:</p>
+                    <select id="selector" name="selector">
+                        <option value="" disabled selected>tablero</option>
+                        <option value="tablero1">3x3</option>
+                        <option value="tablero2">4x5</option>
+                        <option value="tablero3">5x7</option>
+                        <option value="tablero4">8x9</option>
+                    </select>
+                </div>
+            </div>
+            <div class="transparent-box">
+                <button id="btn-start" class="btn-gral">Iniciar Juego</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>

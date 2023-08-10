@@ -1,119 +1,164 @@
-const contenido = document.querySelector('.flex-content')
-const cajaNombres = document.querySelector('.initial-box')
-const lateralIzquierdo = document.querySelector('.left-side')
-const lateralDerecho = document.querySelector('.right-side')
-const btnInicial = document.querySelector('.initial-btn')
-btnInicial.addEventListener('click',iniciarJuego)
-const btnFinal = document.querySelector('.finish-btn')
-btnFinal.addEventListener('click',empezarDeNuevo)
-const nombreJugadorUnoGuardadoEnJson = JSON.parse(localStorage.getItem("nombreJugadorUno")) || "jugador uno"
-document.getElementById('nombre-jugador1').placeholder=nombreJugadorUnoGuardadoEnJson
-const nombreJugadorDosGuardadoEnJson = JSON.parse(localStorage.getItem("nombreJugadorDos")) || "jugador dos"
-document.getElementById('nombre-jugador2').placeholder=nombreJugadorDosGuardadoEnJson
+import Player from "./players.js";
+import Pieza from "./piezas.js";
 
-class Jugador{
-    constructor(name,chosenAvatar){
-        this.nombre = name,
-        this.avatar = chosenAvatar
-        this.piezas = []
-    }
-    agregarPieza(pieza){
-        this.piezas.append(pieza)
-    }
-    eliminarPieza(pieza){
-        console.log("Eliminando Piezas")
-    }
+let selectedBoard;
+let jugadores;
+let playerOne;
+var jugadorUnoGuardadoEnJson
+let playerTwo;
+let jugadorDosGuardadoEnJson;
+
+const btnWelcome = document.querySelector("#btn-welcome");
+const btnStart = document.querySelector("#btn-start");
+const btnInitial = document.querySelector("#btn-initial")
+const btnInfo = document.querySelector("#btn-info");
+const btnReStart = document.querySelector("#btn-restart");
+const playerSetupBox = document.querySelector("#player-setup-box");
+const boardSelector = document.querySelector("#board-selector");
+
+if (btnWelcome){
+    swal("Bienvenidos al cascarón de un juego!!","Para comenzar con el juego, siga los siguientes pasos:\r\nPaso 1: Elija el nombre de los jugadores\r\nPaso 2: Elija el gato de mascota que más le guste\r\nPaso 3: Elija el tamaño del trablero\r\nPaso 4: Presionar botón 'Iniciar Juego'")
+    btnWelcome.addEventListener("click",mostrarPaginaPrincipal)
 }
 
-class Pieza{
-    constructor(typeOfPiece,positionXY){
-        this.tipoDePieza = typeOfPiece,
-        this.posicionXY = positionXY
-    }
-    nuevaPosicionX(x){
-        this.posicionXY[0] = this.posicionXY[0] + x
-    }
-    nuevaPosicionY(y){
-        this.posicionXY[1] = this.posicionXY[1] + y
+if (btnStart){btnStart.addEventListener("click",iniciarJuego)}
+if (btnInitial){btnInitial.addEventListener("click",volverPaginaInicio)}
+if (btnInfo){btnInfo.addEventListener("click",mostrarInfo)}
+if (btnReStart){btnReStart.addEventListener("click",terminarJuego)}
+
+function setCat(player,val,data){
+    const index = player.catID
+    if(index+val>0 && index+val<11){
+        player.catID = index + val
+        player.catName = data[index + val].name
+        player.catImg = data[index + val].dir_img
+        player.render()
     }
 }
 
-function iniciarJuego(){
-    const nameJugadorUno = document.getElementById('nombre-jugador1').value || "bot-jugadorUno"
-    const nameJugadorDos = document.getElementById('nombre-jugador2').value || "bot-jugadorDos"
-    contenido.removeChild(cajaNombres)
-    const jugadorUno = crearJugador(nameJugadorUno);
-    lateralIzquierdo.appendChild(describirJugador(jugadorUno))
-    lateralIzquierdo.setAttribute("style", "background-color:rgb(81, 145, 166)")
-    console.log(lateralIzquierdo.dir)
-    console.log(lateralIzquierdo)
-    const jugadorDos = crearJugador(nameJugadorDos);
-    lateralDerecho.appendChild(describirJugador(jugadorDos))
-    lateralDerecho.setAttribute("style", "background-color:rgb(81, 145, 166)")
-    guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos)
-    crearTablero()
+async function getCats(){
+    try{
+        const res = await fetch(`../data/cats.json`)
+        const data = await res.json()
+        return data
+    }catch(err){
+        swal(err)
+    }
 }
 
-function crearJugador(name){
-    let jugador = new Jugador(name,elegirAvatar() || "black_cat.png")
-    console.log(jugador)
-    return jugador
+async function cargarDatosGuardadosLocalmente(){
+    const datosUno = JSON.parse(localStorage.getItem("jugadorUno"))
+    if(datosUno){
+        document.querySelector(`#${datosUno.divID} #player-name`).placeholder = datosUno.name
+        jugadorUnoGuardadoEnJson = new Player(datosUno.divID,datosUno.name,datosUno.catID,datosUno.catImg,datosUno.catName)
+    }else{
+        document.querySelector("#player-one-setup #player-name").placeholder = "jugador uno"
+        jugadorUnoGuardadoEnJson = new Player("player-one-setup","jugadorUno",1,"black_cat.png","kuro")
+    }
+    
+    const datosDos = JSON.parse(localStorage.getItem("jugadorDos"))
+    if(datosDos){
+        document.querySelector(`#${datosDos.divID} #player-name`).placeholder = datosDos.name
+        jugadorDosGuardadoEnJson = new Player(datosDos.divID,datosDos.name,datosDos.catID,datosDos.catImg,datosDos.catName)
+    }else{
+        document.querySelector("#player-two-setup #player-name").placeholder = "jugador dos"
+        jugadorDosGuardadoEnJson = new Player("player-two-setup","jugadorDos",1,"black_cat.png","kuro")
+    }
+
+    return {jugadorUnoGuardadoEnJson,jugadorDosGuardadoEnJson}
 }
 
-function describirJugador(jugador){
-    let columna = document.createElement('td')
-    columna.innerHTML = `
-    <td><h2>Nombre Jugador</h2></td>
-    <td><p>${jugador.nombre}</p></td>
-    <td><h2>Avatar elegido</h2></td>
-    <td>
-        <div class="card">
-            <img src="../img/${jugador.avatar}" alt="cat">
-        </div>
-    </td>
-    <td><h2>Cant. Piezas</h2></td>
-    <td><p>${jugador.piezas.length}</p></td>
-    `
-    return columna
-}
-
-function elegirAvatar(){
-    let chosenAvatar = ""
-    console.log("imprimir selección de personajes para elegir")
-    return chosenAvatar
-}
-
-function crearTablero(){
-    contenido.innerHTML =`
-    <div class="tablero">
-        <div class="fila">
-            <div id="00" class="cuadrado"></div>
-            <div id="10" class="cuadrado"></div>
-            <div id="20" class="cuadrado"></div>
-        </div>
-        <div class="fila">
-            <div id="01" class="cuadrado"></div>
-            <div id="11" class="cuadrado"></div>
-            <div id="21" class="cuadrado"></div>
-        </div>
-        <div class="fila">
-            <div id="02" class="cuadrado"></div>
-            <div id="12" class="cuadrado"></div>
-            <div id="22" class="cuadrado"></div>
-        </div>
-    </div>
-    `
-}
-
-function empezarDeNuevo(){
-    const tablero = document.querySelector('.tablero')
-    contenido.removeChild(tablero)
-    console.log("reiniciar juego")
-}
-
-function guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos){
-    localStorage.setItem("nombreJugadorUno", JSON.stringify(jugadorUno.nombre))
+async function guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos){
     localStorage.setItem("jugadorUno", JSON.stringify(jugadorUno))
-    localStorage.setItem("nombreJugadorDos", JSON.stringify(jugadorDos.nombre))
     localStorage.setItem("jugadorDos", JSON.stringify(jugadorDos))
 }
+
+async function actualizarImagen(player,val){
+    const catData = await getCats()
+    setCat(player,val,catData)
+}
+
+if (playerSetupBox){
+    jugadores = await cargarDatosGuardadosLocalmente()
+
+    playerOne = jugadores.jugadorUnoGuardadoEnJson
+    playerTwo = jugadores.jugadorDosGuardadoEnJson
+
+    const loadNext = document.querySelectorAll("#btn-next")
+    const loadPrev = document.querySelectorAll("#btn-prev")
+    loadPrev[0].addEventListener("click", async()=>{
+        actualizarImagen(playerOne,-1)
+    })
+    loadNext[0].addEventListener("click", async()=>{
+        actualizarImagen(playerOne,1)
+    })
+    loadPrev[1].addEventListener("click", async()=>{
+        actualizarImagen(playerTwo,-1)
+    })
+    loadNext[1].addEventListener("click", async()=>{
+        actualizarImagen(playerTwo,1)
+    })
+}
+
+if (boardSelector){
+    let select = document.getElementById("selector")
+    select.addEventListener("change",()=>{selectedBoard = select.value})
+}
+
+async function iniciarJuego(){
+    playerOne.name = document.querySelector(`#${playerOne.divID} #player-name`).value || "bot-jugadorUno"
+    playerTwo.name = document.querySelector(`#${playerTwo.divID} #player-name`).value || "bot-jugadorDos"
+    await guardarJugadoresEnLocalStorage(playerOne,playerTwo)
+
+    if(selectedBoard==="tablero1"){
+        location.href = "../pages/tablero3x3.html"
+    }else if(selectedBoard==="tablero2"){
+        location.href = "../pages/tablero4x5.html"
+    }else if(selectedBoard==="tablero3"){
+        location.href = "../pages/tablero5x7.html"
+    }else if(selectedBoard==="tablero2"){
+        location.href = "../pages/tablero8x9.html"
+    }
+
+}
+
+function terminarJuego(){
+    localStorage.removeItem("jugadorUno")
+    localStorage.removeItem("jugadorDos")
+    location.href = "../index.html"
+}
+
+function volverPaginaInicio(){
+    if (playerSetupBox){
+        terminarJuego()
+    }else{
+        location.href = "./inicio.html"
+    }
+}
+
+function mostrarInfo(){
+    swal("Reglas!", "Este es un juego por turnos.\r\nEn tu turno, selecciona una celda vacía del tablero donde deseas colocar tu pieza.\r\nEn caso de que alrededor de la pieza colocada, haya piezas del rival, estas se alejaran por una posición de la pieza colocada.\r\nSi logras poner 3 piezas normales tuyas en línea (ya sea vertical, horizontal o diagonal), las 3 se reemplazarán por una pieza mayor.\r\nEl juego termina cuando tú o tu rival formen una línea de 3 piezas mayores.\r\n\r\nBuena suerte!!")
+}
+
+function mostrarPaginaPrincipal(){
+    location.href = "./pages/inicio.html";
+}
+// const pieza1 = new Pieza("normal",[1,2])
+// const pieza2 = new Pieza("normal",[2,2])
+// const pieza3 = new Pieza("normal",[1,3])
+// playerOne.agregarPieza(pieza1)
+// playerOne.agregarPieza(pieza2)
+// playerOne.agregarPieza(pieza3)
+// playerOne.eliminarPieza(pieza2)
+// playerOne.eliminarPieza(pieza1)
+// console.log(playerOne)
+// fetch('../cats.json')
+//     .then((response) => {
+//         return response.json()
+//     })
+//     .then((json) => console.log(json))
+//     .catch((err) => {
+//         swal("Error",`${err}`,"error")
+//     })
+
+

@@ -1,37 +1,26 @@
 *{
     margin: 0px;
     padding: 0px;
-    text-align: center;
-    align-items: center;
     border-radius: 10px;
+    align-items: center;
+    text-align: center;
 }
 
 body {
-    background-image: url("../img/cats.png");
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/cat_background.png");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 100vh;
-    padding-bottom: 10vh;
-}
-
-.contenedor{
-    display: grid;
-    grid:
-      "header header header" auto
-      "left-side body right-side" 2fr
-      "footer footer footer" auto
-      / auto 1fr auto;
 }
 
 .header{
-    grid-area: header;
-    border: 1px black;
+    position: sticky;
+    background-color: rgb(118, 206, 236);
     text-align: center;
-    background-color: rgb(81, 145, 166);
-    display: grid;
     border-radius: 10px;
     margin: 10px;
+    width: 90vw;
 }
 
 h1 {
@@ -39,35 +28,66 @@ h1 {
     line-height: 100px;
 }
 
-h2{
-    line-height: 50px;
+.bar{
+    display: flex;
+    justify-content: end;
+    background-color: rgba(118, 206, 236, 0.831);
+    position: sticky;
+    margin: 10px;
+    width: 90vw;
 }
 
-.flex-content {
-    grid-area: body;
-    min-height: 500px;
-    padding: 5px;
-    display:grid;
+.container{
+    display: flex;
     justify-content: center;
-    border: 1px black;
+    flex-direction: column;
 }
 
-#side{
-    width: 250px;
-    float:left;
-    border: 1px black;
-    display: grid;
-    align-items: center;
-    margin: 10px
+.transparent-box{
+    margin: 10px;
+    padding: 10px;
+    width: 500px;
+    border-top: 2px solid #ffffff75;
+    border-left: 2px solid #ffffff75;
+    box-shadow: 5px 5px 12px #00000035;
+    background: rgba(118, 206, 236, 0.37);
+    overflow: hidden;
+    backdrop-filter: blur(4px);
 }
 
-.left-side{ grid-area: left-side;}
-.rigth-side{ grid-area: right-side;}
+#player-setup-box{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    font-size: 20px;
+}
 
-.footer { grid-area: footer; }
+.player-box{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+}
 
-input{
-    height: 30px;
+#player-one-setup, #player-two-setup{
+    display: flex;
+    flex-direction: column;
+}
+
+#player-img-box, #player-two-img-box{
+    font-size: 15px;
+    width: fit-content;
+    background-color: #ecbfbf81;
+}
+
+.card{
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+}
+
+.btn-gral{
+    width: 120px;
 }
 
 button{
@@ -75,80 +95,81 @@ button{
     background-color: rgb(67, 176, 243);
     border: 2px solid #000;
     font-weight: 900;
-    padding: 5px 24px;
+    padding: 5px 10px;
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 10px;
     opacity: .85;
     text-decoration: none;
-    margin: 5px;
-}
-
-button:hover{
-    background-color: transparent;
-    border: 2px solid rgb(67, 176, 243);
-    color: rgb(67, 176, 243);
-    text-shadow: #333
-}
-
-.card img{
-    width: 80px;
-    height: 80px;
-    display: block;
     margin: 10px;
-    background-color: white;
-}
-
-.initial-btn .finish-btn{
-    grid-area: btn-inicial;
-    height: 50px;
-    width: 200px;
     cursor: pointer;
 }
 
-.initial-box{
-    width: 500px;
-    height: 200px;
-    justify-content: center;
-    background-color: rgb(122, 176, 212);
-    display: grid;
-    grid:
-        "jugador1 vs jugador2" auto
-        "btn-inicial btn-inicial btn-inicial" auto
-        / auto auto auto;
-}
-
-#player-one{
-    grid-area: jugador1;
+button:hover{
+    margin:10px;
+    color: rgb(67, 176, 243);
+    text-shadow: #333;
+    background-color: rgb(40, 122, 174);
+    border: 2px solid rgb(67, 176, 243);
+    cursor: pointer;
 }
 
 #versus{
-    grid-area: vs;
-    margin: 10px;
+    margin: 5%;
 }
 
-#player-two{
-    grid-area: jugador2;
+input{
+    height: 30px;
 }
 
-.tablero {
-    background: white;
-    /* width: 410px;
-    height:410px; */
-    border: 0.5rem solid #333;
+p{
+    font-size: 25px;
+    padding:20px
+}
+
+select{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.tablero{
     display: flex;
+}
+
+.tablero:hover > :not(:hover) {
+    opacity: .4;
+    background: transparent;
+}
+
+.play-zone{
+    display: flex;
+    flex-direction: row;
 }
 
 .cuadrado {
     margin: 10px;
     width: 100px;
     height: 100px;
-    background: burlywood;
-    border: 0.5px solid #ccc;
     border-radius: 10%;
     font-size: 3.5rem;
-    text-align: center;
+    border-top: 2px solid #ffffff75;
+    border-left: 2px solid #ffffff75;
+    box-shadow: 5px 5px 12px #00000035;
+    background: #ffffff25;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
 }
 
-td{
-    margin: 30px;
+.fila:hover > :not(:hover) {
+    opacity: .4;
+}
+
+#left-side, #right-side{
+    width: 250px;
+    height: 100vh;
+    float:left;
+    border: 1px black;
+    display: grid;
+    align-items: center;
+    margin: 10px
 }
