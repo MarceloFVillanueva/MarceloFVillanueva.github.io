@@ -33,7 +33,7 @@ async function agregarImagen(divIDtablero){
             playerOne.addPiece(divIDtablero)
             amountPieces = playerOne.piezas.length
             tittle = `<h1>Turno de: ${playerTwo.name}</h1>`
-            console.log(playerOne)
+            // console.log(playerOne)
         }else{
             imgToAdd = playerTwo.catImg
             classToAdd = playerTwo.classImg
@@ -41,7 +41,7 @@ async function agregarImagen(divIDtablero){
             playerTwo.addPiece(divIDtablero)
             amountPieces = playerTwo.piezas.length
             tittle = `<h1>Turno de: ${playerOne.name}</h1>`
-            console.log(playerTwo)
+            // console.log(playerTwo)
         }
         turno+=1
     }
@@ -112,7 +112,7 @@ async function cargarDatosGuardadosLocalmente(player,divIDs){
     let jugadorGuardadoEnJson;
     if(datos){
         if(playerSetupBox){
-            console.log(playerSetupBox)
+            // console.log(playerSetupBox)
             document.querySelector(`#${divIDs} #player-name`).placeholder = datos.name
         }
         jugadorGuardadoEnJson = new Player(datos.name,datos.catID,datos.catImg,datos.catName,divIDs,datos.classImg)
