@@ -11,7 +11,7 @@ body {
     flex-direction: column;
     background-image: url("../img/cat_background.png");
     /* height: 100hv; */
-    /* background-size: cover; */
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -30,6 +30,7 @@ h1 {
 }
 
 .bar{
+    left: 50%;
     display: flex;
     justify-content: end;
     background-color: rgba(118, 206, 236, 0.831);
@@ -145,14 +146,15 @@ select{
     display: flex;
 }
 
-.tablero:hover > :not(:hover) {
+/* .tablero:hover > :not(:hover) {
     opacity: .4;
     background: transparent;
-}
+} */
 
 #play-box{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: flex-start;
 }
 
@@ -174,15 +176,26 @@ select{
     background: #c89a1025;
 }
 
-.fila:hover > :not(:hover) {
+/* .fila:hover > :not(:hover) {
     opacity: .4;
-}
+} */
 
 #left-side, #right-side{
     width: 250px;
     float:left;
     border: 1px black;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin: 10px
+}
+
+.footer .transparent-box{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vh;
+    background: rgba(28, 198, 255, 0.771);
 }

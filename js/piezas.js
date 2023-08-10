@@ -1,8 +1,10 @@
 export default class Pieza {
-    constructor(typeOfPiece,positionXY){
-        this.tipoDePieza = typeOfPiece,
-        this.posicionXY = positionXY
+    constructor(typePiece,positionXY,typeClass){
+        this.tipoDePieza = typePiece,
+        this.posicionXY = positionXY,
+        this.tipoDeClase = typeClass
     }
+    
     nuevaPosicionX(x){
         this.posicionXY[0] = this.posicionXY[0] + x
     }

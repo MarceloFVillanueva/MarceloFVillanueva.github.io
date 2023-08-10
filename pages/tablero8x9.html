@@ -21,103 +21,115 @@
                 <button id="btn-restart" class="btn-gral" data-page="index">Reiniciar Todo</button>
             </nav>
             <div id="play-box">
-                <div id = "left-side" class="transparent-box"></div>
+                <div id = "left-side" class="transparent-box">
+                    <div id="player-name"></div>
+                    <div id="player-img-box" class="transparent-box"></div>
+                    <div id="player-pieces"></div>
+                </div>
                 <div class="tablero">
                     <div class="fila">
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="aa" class="cuadrado" onclick="agregarImagen(`aa`)"></div>
+                        <div id="ba" class="cuadrado" onclick="agregarImagen(`ba`)"></div>
+                        <div id="ca" class="cuadrado" onclick="agregarImagen(`ca`)"></div>
+                        <div id="da" class="cuadrado" onclick="agregarImagen(`da`)"></div>
+                        <div id="ea" class="cuadrado" onclick="agregarImagen(`ea`)"></div>
+                        <div id="fa" class="cuadrado" onclick="agregarImagen(`fa`)"></div>
+                        <div id="ga" class="cuadrado" onclick="agregarImagen(`ga`)"></div>
+                        <div id="ha" class="cuadrado" onclick="agregarImagen(`ha`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="01" class="cuadrado"></div>
-                        <div id="11" class="cuadrado"></div>
-                        <div id="21" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ab" class="cuadrado" onclick="agregarImagen(`ab`)"></div>
+                        <div id="bb" class="cuadrado" onclick="agregarImagen(`bb`)"></div>
+                        <div id="cb" class="cuadrado" onclick="agregarImagen(`cb`)"></div>
+                        <div id="db" class="cuadrado" onclick="agregarImagen(`db`)"></div>
+                        <div id="eb" class="cuadrado" onclick="agregarImagen(`eb`)"></div>
+                        <div id="fb" class="cuadrado" onclick="agregarImagen(`fb`)"></div>
+                        <div id="gb" class="cuadrado" onclick="agregarImagen(`gb`)"></div>
+                        <div id="hb" class="cuadrado" onclick="agregarImagen(`hb`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ac" class="cuadrado" onclick="agregarImagen(`ac`)"></div>
+                        <div id="bc" class="cuadrado" onclick="agregarImagen(`bc`)"></div>
+                        <div id="cc" class="cuadrado" onclick="agregarImagen(`cc`)"></div>
+                        <div id="dc" class="cuadrado" onclick="agregarImagen(`dc`)"></div>
+                        <div id="ec" class="cuadrado" onclick="agregarImagen(`ec`)"></div>
+                        <div id="fc" class="cuadrado" onclick="agregarImagen(`fc`)"></div>
+                        <div id="gc" class="cuadrado" onclick="agregarImagen(`gc`)"></div>
+                        <div id="hc" class="cuadrado" onclick="agregarImagen(`hc`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ad" class="cuadrado" onclick="agregarImagen(`ad`)"></div>
+                        <div id="bd" class="cuadrado" onclick="agregarImagen(`bd`)"></div>
+                        <div id="cd" class="cuadrado" onclick="agregarImagen(`cd`)"></div>
+                        <div id="dd" class="cuadrado" onclick="agregarImagen(`dd`)"></div>
+                        <div id="ed" class="cuadrado" onclick="agregarImagen(`ed`)"></div>
+                        <div id="fd" class="cuadrado" onclick="agregarImagen(`fd`)"></div>
+                        <div id="gd" class="cuadrado" onclick="agregarImagen(`gd`)"></div>
+                        <div id="hd" class="cuadrado" onclick="agregarImagen(`hd`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="af" class="cuadrado" onclick="agregarImagen(`af`)"></div>
+                        <div id="bf" class="cuadrado" onclick="agregarImagen(`bf`)"></div>
+                        <div id="cf" class="cuadrado" onclick="agregarImagen(`cf`)"></div>
+                        <div id="df" class="cuadrado" onclick="agregarImagen(`df`)"></div>
+                        <div id="ef" class="cuadrado" onclick="agregarImagen(`ef`)"></div>
+                        <div id="ff" class="cuadrado" onclick="agregarImagen(`ff`)"></div>
+                        <div id="gf" class="cuadrado" onclick="agregarImagen(`gf`)"></div>
+                        <div id="hf" class="cuadrado" onclick="agregarImagen(`hf`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ag" class="cuadrado" onclick="agregarImagen(`ag`)"></div>
+                        <div id="bg" class="cuadrado" onclick="agregarImagen(`bg`)"></div>
+                        <div id="cg" class="cuadrado" onclick="agregarImagen(`cg`)"></div>
+                        <div id="dg" class="cuadrado" onclick="agregarImagen(`dg`)"></div>
+                        <div id="eg" class="cuadrado" onclick="agregarImagen(`eg`)"></div>
+                        <div id="fg" class="cuadrado" onclick="agregarImagen(`fg`)"></div>
+                        <div id="gg" class="cuadrado" onclick="agregarImagen(`gg`)"></div>
+                        <div id="hg" class="cuadrado" onclick="agregarImagen(`hg`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ah" class="cuadrado" onclick="agregarImagen(`ah`)"></div>
+                        <div id="bh" class="cuadrado" onclick="agregarImagen(`bh`)"></div>
+                        <div id="ch" class="cuadrado" onclick="agregarImagen(`ch`)"></div>
+                        <div id="dh" class="cuadrado" onclick="agregarImagen(`dh`)"></div>
+                        <div id="eh" class="cuadrado" onclick="agregarImagen(`eh`)"></div>
+                        <div id="fh" class="cuadrado" onclick="agregarImagen(`fh`)"></div>
+                        <div id="gh" class="cuadrado" onclick="agregarImagen(`gh`)"></div>
+                        <div id="hh" class="cuadrado" onclick="agregarImagen(`hh`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="ai" class="cuadrado" onclick="agregarImagen(`ai`)"></div>
+                        <div id="bi" class="cuadrado" onclick="agregarImagen(`bi`)"></div>
+                        <div id="ci" class="cuadrado" onclick="agregarImagen(`ci`)"></div>
+                        <div id="di" class="cuadrado" onclick="agregarImagen(`di`)"></div>
+                        <div id="ei" class="cuadrado" onclick="agregarImagen(`ei`)"></div>
+                        <div id="fi" class="cuadrado" onclick="agregarImagen(`fi`)"></div>
+                        <div id="gi" class="cuadrado" onclick="agregarImagen(`gi`)"></div>
+                        <div id="hi" class="cuadrado" onclick="agregarImagen(`hi`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cuadrado"></div>
-                        <div id="12" class="cuadrado"></div>
-                        <div id="22" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="00" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
-                        <div id="20" class="cuadrado"></div>
-                        <div id="10" class="cuadrado"></div>
+                        <div id="aj" class="cuadrado" onclick="agregarImagen(`aj`)"></div>
+                        <div id="bj" class="cuadrado" onclick="agregarImagen(`bj`)"></div>
+                        <div id="cj" class="cuadrado" onclick="agregarImagen(`cj`)"></div>
+                        <div id="dj" class="cuadrado" onclick="agregarImagen(`dj`)"></div>
+                        <div id="ej" class="cuadrado" onclick="agregarImagen(`ej`)"></div>
+                        <div id="fj" class="cuadrado" onclick="agregarImagen(`fj`)"></div>
+                        <div id="gj" class="cuadrado" onclick="agregarImagen(`gj`)"></div>
+                        <div id="hj" class="cuadrado" onclick="agregarImagen(`hj`)"></div>
                     </div>
                 </div>
-                <div id = "right-side" class="transparent-box"></div>
+                <div id = "right-side" class="transparent-box">
+                    <div id="player-name"></div>
+                    <div id="player-img-box" class="transparent-box"></div>
+                    <div id="player-pieces"></div>
+                </div>
             </div>
         </div>
-    <div class="footer"></div>
+        <div class="footer">
+            <div class="transparent-box">
+                <tfoot>Hecho por Marcelo Villanueva</tfoot>
+            </div>
+        </div>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

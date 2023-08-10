@@ -1,12 +1,9 @@
 import Player from "./players.js";
-import Pieza from "./piezas.js";
 
 let selectedBoard;
-let jugadores;
 let playerOne;
-var jugadorUnoGuardadoEnJson
 let playerTwo;
-let jugadorDosGuardadoEnJson;
+let turno = 0;
 
 const btnWelcome = document.querySelector("#btn-welcome");
 const btnStart = document.querySelector("#btn-start");
@@ -16,12 +13,68 @@ const btnReStart = document.querySelector("#btn-restart");
 const playerSetupBox = document.querySelector("#player-setup-box");
 const boardSelector = document.querySelector("#board-selector");
 const playBox = document.querySelector("#play-box")
+const titulo = document.querySelector(".header")
+const tablero = document.querySelector(".tablero")
+
+window.agregarImagen = agregarImagen
+
+async function agregarImagen(divIDtablero){
+    const celda = document.querySelector(`#${divIDtablero}`)
+    let imgToAdd;
+    let classToAdd;
+    let divPoint;
+    let amountPieces;
+    let tittle;
+    if(tablero){
+        if (turno%2==0){
+            imgToAdd = playerOne.catImg
+            classToAdd = playerOne.classImg
+            divPoint = playerOne.divID
+            playerOne.addPiece(divIDtablero)
+            amountPieces = playerOne.piezas.length
+            tittle = `<h1>Turno de: ${playerTwo.name}</h1>`
+            console.log(playerOne)
+        }else{
+            imgToAdd = playerTwo.catImg
+            classToAdd = playerTwo.classImg
+            divPoint = playerTwo.divID
+            playerTwo.addPiece(divIDtablero)
+            amountPieces = playerTwo.piezas.length
+            tittle = `<h1>Turno de: ${playerOne.name}</h1>`
+            console.log(playerTwo)
+        }
+        turno+=1
+    }
+    celda.innerHTML = `    
+    <div>
+        <img src="../img/${imgToAdd}" alt="" class="${classToAdd}">
+    </div>
+    `
+    document.querySelector(`#${divPoint} #player-pieces p`).textContent = amountPieces
+
+    titulo.innerHTML = tittle
+}
+
+function completarDatosJugador(player){
+    document.querySelector(`#${player.divID} #player-name`).innerHTML = `<h2>Nombre del jugador</h2><p>${player.name}</p>`
+    document.querySelector(`#${player.divID} #player-pieces`).innerHTML = `<h2>cantidad de piezas en el tablero</h2><p>${player.piezas.length}</p>`
+}
 
 if (playBox){
-    const celdas = document.querySelectorAll(".cuadrado")
-    celdas.forEach(element => {
-        console.log(element.id)
-    });
+    playerOne = await cargarDatosGuardadosLocalmente("jugadorUno","left-side")
+    playerTwo = await cargarDatosGuardadosLocalmente("jugadorDos","right-side")
+
+    titulo.innerHTML = `<h1>Turno de: ${playerOne.name}</h1>`
+
+    if(playerOne.catID === playerTwo.catID){
+        const imgClass = document.querySelector("#right-side #character-image-container")
+        imgClass.setAttribute("class","card_copia")
+        playerTwo.classImg = "card_copia"
+        await guardarJugadoresEnLocalStorage(playerOne,playerTwo)
+    }
+
+    completarDatosJugador(playerOne)
+    completarDatosJugador(playerTwo)
 }
 
 if (boardSelector){
@@ -54,33 +107,27 @@ async function actualizarImagen(player,val){
     setCat(player,val,catData)
 }
 
-async function cargarDatosGuardadosLocalmente(){
-    const datosUno = JSON.parse(localStorage.getItem("jugadorUno"))
-    if(datosUno){
-        document.querySelector(`#${datosUno.divIDsetup} #player-name`).placeholder = datosUno.name
-        jugadorUnoGuardadoEnJson = new Player(datosUno.name,datosUno.catID,datosUno.catImg,datosUno.catName,datosUno.divIDsetup,datosUno.divIDplayer)
+async function cargarDatosGuardadosLocalmente(player,divIDs){
+    const datos = JSON.parse(localStorage.getItem(player))
+    let jugadorGuardadoEnJson;
+    if(datos){
+        if(playerSetupBox){
+            console.log(playerSetupBox)
+            document.querySelector(`#${divIDs} #player-name`).placeholder = datos.name
+        }
+        jugadorGuardadoEnJson = new Player(datos.name,datos.catID,datos.catImg,datos.catName,divIDs,datos.classImg)
     }else{
-        document.querySelector("#player-one-setup #player-name").placeholder = "jugador uno"
-        jugadorUnoGuardadoEnJson = new Player("jugadorUno",1,"black_cat.png","kuro","player-one-setup","left-side")
+        if(playerSetupBox){
+            document.querySelector(`#${divIDs} #player-name`).placeholder = player
+        }
+        jugadorGuardadoEnJson = new Player(player,1,"black_cat.png","kuro",divIDs,"card")
     }
-    
-    const datosDos = JSON.parse(localStorage.getItem("jugadorDos"))
-    if(datosDos){
-        document.querySelector(`#${datosDos.divIDsetup} #player-name`).placeholder = datosDos.name
-        jugadorDosGuardadoEnJson = new Player(datosDos.name,datosDos.catID,datosDos.catImg,datosDos.catName,datosDos.divIDsetup,datosDos.divIDplayer)
-    }else{
-        document.querySelector("#player-two-setup #player-name").placeholder = "jugador dos"
-        jugadorDosGuardadoEnJson = new Player("jugadorDos",1,"black_cat.png","kuro","player-two-setup","right-side")
-    }
-
-    return {jugadorUnoGuardadoEnJson,jugadorDosGuardadoEnJson}
+    return jugadorGuardadoEnJson
 }
 
 if (playerSetupBox){
-    jugadores = await cargarDatosGuardadosLocalmente()
-
-    playerOne = jugadores.jugadorUnoGuardadoEnJson
-    playerTwo = jugadores.jugadorDosGuardadoEnJson
+    playerOne = await cargarDatosGuardadosLocalmente("jugadorUno","player-one-setup")
+    playerTwo = await cargarDatosGuardadosLocalmente("jugadorDos","player-two-setup")
 
     const loadNext = document.querySelectorAll("#btn-next")
     const loadPrev = document.querySelectorAll("#btn-prev")
@@ -103,7 +150,7 @@ if (btnInfo){btnInfo.addEventListener("click",mostrarInfo)}
 if (btnInitial){btnInitial.addEventListener("click",volverPaginaInicio)}
 if (btnStart){btnStart.addEventListener("click",iniciarJuego)}
 if (btnWelcome){
-    swal("Bienvenidos al cascarón de un juego!!","Para comenzar con el juego, siga los siguientes pasos:\r\nPaso 1: Elija el nombre de los jugadores\r\nPaso 2: Elija el gato de mascota que más le guste\r\nPaso 3: Elija el tamaño del trablero\r\nPaso 4: Presionar botón 'Iniciar Juego'")
+    swal("Bienvenidos al cascarón de un juego!!","Al comenzar, se puede:\r\n* Elegir pieza con que jugar\r\n* Elegir el nombre que deseas para jugar\r\n* Elegir tamaño del tablero\r\nAl iniciar el juego, se puede:\r\n* Colocar piezas\r\n* Consultar información\r\n* volver a la página para elegir\r\n* volver a la página inicial\r\n\r\nADVERTENCIA: La lógica del juego no está completa!!")
     btnWelcome.addEventListener("click",mostrarPaginaPrincipal)
 }
 
@@ -114,8 +161,8 @@ async function guardarJugadoresEnLocalStorage(jugadorUno,jugadorDos){
 }
 
 async function iniciarJuego(){
-    playerOne.name = document.querySelector(`#${playerOne.divIDsetup} #player-name`).value || "bot-jugadorUno"
-    playerTwo.name = document.querySelector(`#${playerTwo.divIDsetup} #player-name`).value || "bot-jugadorDos"
+    playerOne.name = document.querySelector(`#${playerOne.divID} #player-name`).value || "bot-jugadorUno"
+    playerTwo.name = document.querySelector(`#${playerTwo.divID} #player-name`).value || "bot-jugadorDos"
     
     if(playerOne.catID === playerTwo.catID){
         document.querySelector("#player-two-setup img").setAttribute('class',"card_copia")
@@ -128,7 +175,7 @@ async function iniciarJuego(){
     }else if(selectedBoard==="tablero2"){
         location.href = "../pages/tablero4x5.html"
     }else if(selectedBoard==="tablero3"){
-        location.href = "../pages/tablero5x7.html"
+        location.href = "../pages/tablero7x5.html"
     }else if(selectedBoard==="tablero4"){
         location.href = "../pages/tablero8x9.html"
     }
@@ -156,23 +203,3 @@ function mostrarInfo(){
 function mostrarPaginaPrincipal(){
     location.href = "./pages/inicio.html";
 }
-
-// const pieza1 = new Pieza("normal",[1,2])
-// const pieza2 = new Pieza("normal",[2,2])
-// const pieza3 = new Pieza("normal",[1,3])
-// playerOne.agregarPieza(pieza1)
-// playerOne.agregarPieza(pieza2)
-// playerOne.agregarPieza(pieza3)
-// playerOne.eliminarPieza(pieza2)
-// playerOne.eliminarPieza(pieza1)
-// console.log(playerOne)
-// fetch('../cats.json')
-//     .then((response) => {
-//         return response.json()
-//     })
-//     .then((json) => console.log(json))
-//     .catch((err) => {
-//         swal("Error",`${err}`,"error")
-//     })
-
-

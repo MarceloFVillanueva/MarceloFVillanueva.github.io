@@ -1,20 +1,23 @@
+import Pieza from "./piezas.js";
+
 export default class Player {
-    constructor(name,catID,catImg,catName,divIDsetup,divIDplayer){
+    constructor(name,catID,catImg,catName,divID,classImg){
         this.name = name
         this.catID = catID
         this.catImg = catImg
         this.catName = catName
-        this.divIDsetup = divIDsetup
-        this.divIDplayer = divIDplayer
+        this.divID = divID
+        this.classImg = classImg
         this.piezas = []
 
-        this._playerImgBox = document.querySelector(`#${divIDsetup} #player-img-box`)
+        this._playerImgBox = document.querySelector(`#${divID} #player-img-box`)
 
         this.render()
     }
 
-    addPiece(pieza){
-        this.piezas.push(pieza)
+    addPiece(position){
+        const nuevaPieza = new Pieza("normal",position,this.classImg)
+        this.piezas.push(nuevaPieza)
         console.log(this.piezas)
     }
 
@@ -33,7 +36,7 @@ export default class Player {
     buildImage(){
         return `
         <img id="character-image-container" src="../img/${this.catImg}" class="card">
-        <p id="player-one-img-name">${this.catName}</p>
+        <p id="player-img-name">${this.catName}</p>
         `
     }
 

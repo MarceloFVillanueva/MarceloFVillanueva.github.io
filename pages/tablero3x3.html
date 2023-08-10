@@ -14,35 +14,47 @@
         <h1>Trabajo Final</h1>
     </div>
     <div class="container">
-        <div id="pag-table">
+        <div id="pag-tablero">
             <nav class="bar">
                 <button id="btn-info" class="btn-gral">Como jugar?</button>
                 <button id="btn-initial" class="btn-gral">Volver</button>
                 <button id="btn-restart" class="btn-gral" data-page="index">Reiniciar Todo</button>
             </nav>
-            <div class="play-box">
-                <div id = "left-side" class="left-side"></div>
+            <div id="play-box">
+                <div id = "left-side" class="transparent-box">
+                    <div id="player-name"></div>
+                    <div id="player-img-box" class="transparent-box"></div>
+                    <div id="player-pieces"></div>
+                </div>
                 <div class="tablero">
                     <div class="fila">
-                        <div id="00" class="cell"></div>
-                        <div id="10" class="cell"></div>
-                        <div id="20" class="cell"></div>
+                        <div id="aa" class="cuadrado" onclick="agregarImagen(`aa`)"></div>
+                        <div id="ba" class="cuadrado" onclick="agregarImagen(`ba`)"></div>
+                        <div id="ca" class="cuadrado" onclick="agregarImagen(`ca`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="01" class="cell"></div>
-                        <div id="11" class="cell"></div>
-                        <div id="21" class="cell"></div>
+                        <div id="ab" class="cuadrado" onclick="agregarImagen(`ab`)"></div>
+                        <div id="bb" class="cuadrado" onclick="agregarImagen(`bb`)"></div>
+                        <div id="cb" class="cuadrado" onclick="agregarImagen(`cb`)"></div>
                     </div>
                     <div class="fila">
-                        <div id="02" class="cell"></div>
-                        <div id="12" class="cell"></div>
-                        <div id="22" class="cell"></div>
+                        <div id="ac" class="cuadrado" onclick="agregarImagen(`ac`)"></div>
+                        <div id="bc" class="cuadrado" onclick="agregarImagen(`bc`)"></div>
+                        <div id="cc" class="cuadrado" onclick="agregarImagen(`cc`)"></div>
                     </div>
                 </div>
-                <div id = "right-side" class="right-side"></div>
+                <div id = "right-side" class="transparent-box">
+                    <div id="player-name"></div>
+                    <div id="player-img-box" class="transparent-box"></div>
+                    <div id="player-pieces"></div>
+                </div>
             </div>
         </div>
-    <div class="footer"></div>
+        <div class="footer">
+            <div class="transparent-box">
+                <tfoot>Hecho por Marcelo Villanueva</tfoot>
+            </div>
+        </div>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
