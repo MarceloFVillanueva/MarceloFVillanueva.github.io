@@ -18,6 +18,17 @@ const tablero = document.querySelector(".tablero")
 
 window.agregarImagen = agregarImagen
 
+async function existePiezaEn(divIDtablero){
+    let piezasEnTablero = playerOne.piezas.concat(playerTwo.piezas)
+    let existe = false
+    piezasEnTablero.forEach(element => {
+        if (element.posicionXY == divIDtablero){
+            existe = true
+        }        
+    });
+    return existe
+}
+
 async function agregarImagen(divIDtablero){
     const celda = document.querySelector(`#${divIDtablero}`)
     let imgToAdd;
@@ -26,33 +37,34 @@ async function agregarImagen(divIDtablero){
     let amountPieces;
     let tittle;
     if(tablero){
-        if (turno%2==0){
-            imgToAdd = playerOne.catImg
-            classToAdd = playerOne.classImg
-            divPoint = playerOne.divID
-            playerOne.addPiece(divIDtablero)
-            amountPieces = playerOne.piezas.length
-            tittle = `<h1>Turno de: ${playerTwo.name}</h1>`
-            // console.log(playerOne)
-        }else{
-            imgToAdd = playerTwo.catImg
-            classToAdd = playerTwo.classImg
-            divPoint = playerTwo.divID
-            playerTwo.addPiece(divIDtablero)
-            amountPieces = playerTwo.piezas.length
-            tittle = `<h1>Turno de: ${playerOne.name}</h1>`
-            // console.log(playerTwo)
-        }
-        turno+=1
-    }
-    celda.innerHTML = `    
-    <div>
-        <img src="../img/${imgToAdd}" alt="" class="${classToAdd}">
-    </div>
-    `
-    document.querySelector(`#${divPoint} #player-pieces p`).textContent = amountPieces
+        if (! await existePiezaEn(divIDtablero)){
+            if (turno%2==0){
+                imgToAdd = playerOne.catImg
+                classToAdd = playerOne.classImg
+                divPoint = playerOne.divID
+                playerOne.addPiece(divIDtablero)
+                amountPieces = playerOne.piezas.length
+                tittle = `<h1>Turno de: ${playerTwo.name}</h1>`
+            }else{
+                imgToAdd = playerTwo.catImg
+                classToAdd = playerTwo.classImg
+                divPoint = playerTwo.divID
+                playerTwo.addPiece(divIDtablero)
+                amountPieces = playerTwo.piezas.length
+                tittle = `<h1>Turno de: ${playerOne.name}</h1>`
+            }
+            turno+=1
 
-    titulo.innerHTML = tittle
+            celda.innerHTML = `    
+            <div>
+                <img src="../img/${imgToAdd}" alt="" class="${classToAdd}">
+            </div>
+            `
+            document.querySelector(`#${divPoint} #player-pieces p`).textContent = amountPieces
+        
+            titulo.innerHTML = tittle
+        }
+    }
 }
 
 function completarDatosJugador(player){
